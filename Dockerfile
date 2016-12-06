@@ -1,9 +1,9 @@
-FROM dmodules/dmodules-django-docker:latest
+FROM dmodules/dmodules-django-docker
 
 ADD requirements.txt /localapp/
 RUN pip install -r requirements.txt
 
-COPY . /localapp
+ADD . /localapp
 
 # collectstatic
 # -------------
