@@ -5,8 +5,12 @@ DATA_DIR = os.path.dirname(os.path.dirname(__file__))
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '*',]
+try:
+    from settings_local import *
+except ImportError:
+    pass
 
+ALLOWED_HOSTS = ['localhost', '*',]
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
@@ -15,22 +19,6 @@ ALLOWED_HOSTS = ['localhost', '*',]
 SECRET_KEY = '@lqhi6_f-2nqgn&tck3t_b=+darg9+3172@@x+*3tt%kncrgjt'
 
 TEMPLATE_DEBUG = True
-
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'postgres',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
-        'HOST': 'postgres',
-        'PORT': '5432',
-    }
-}
-
-JENKINS_TASKS = (
-    'django_jenkins.tasks.run_pylint',
-)
 
 # Application definition
 
@@ -41,8 +29,6 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    #default dmodules apps
-    #'django_jenkins'
 )
 
 MIDDLEWARE_CLASSES = (

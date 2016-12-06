@@ -8,4 +8,4 @@ COPY . /localapp
 # collectstatic
 # -------------
 RUN DJANGO_MODE=build python manage.py collectstatic --noinput
-RUN DJANGO_MODE=build python manage.py migrate
+#RUN DJANGO_MODE=build python manage.py migrate
