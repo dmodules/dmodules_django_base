@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
 gettext = lambda s: s
-DATA_DIR = os.path.dirname(os.path.dirname(__file__))
-
-DEBUG = True
+APP_DIR = '/localapp/'
 
 try:
     from settings_local import *
@@ -18,7 +16,7 @@ ALLOWED_HOSTS = ['localhost', '*',]
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '@lqhi6_f-2nqgn&tck3t_b=+darg9+3172@@x+*3tt%kncrgjt'
 
-TEMPLATE_DEBUG = True
+TEMPLATE_DEBUG = DEBUG
 
 # Application definition
 
@@ -29,6 +27,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'storages',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -56,13 +55,32 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
-STATICFILES_DIRS = (('/localapp/static'),)
+STATICFILES_DIRS = (('/localapp/static/'),)
 
-STATIC_URL = '/static/'
+#STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(DATA_DIR, 'media')
-STATIC_ROOT = os.path.join(DATA_DIR, 'static_collected')
+MEDIA_ROOT = os.path.join('/data/media/')
+STATIC_ROOT = os.path.join(APP_DIR, '/data/static_collected/')
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [
+            ### ADD YOUR DIRECTORY HERE LIKE SO:
+            APP_DIR + '/templates/',
+        ],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+                'django.core.context_processors.media',
+            ],
+        },
+    },
+]

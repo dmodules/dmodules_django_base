@@ -2,4 +2,5 @@ Django==1.8.16
 django-crispy-forms
 pytz
 psycopg2
-fabric
+django-storages
+boto
