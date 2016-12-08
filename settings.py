@@ -60,8 +60,6 @@ USE_TZ = True
 
 STATICFILES_DIRS = (('/localapp/static/'),)
 
-#STATIC_URL = '/static/'
-MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join('/data/media/')
 STATIC_ROOT = os.path.join(APP_DIR, '/data/static_collected/')
 
@@ -84,3 +82,35 @@ TEMPLATES = [
         },
     },
 ]
+
+
+if DEBUG:
+
+    STATIC_URL = '/static/'
+    MEDIA_URL = '/media/'
+
+else:
+
+    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+
+    AWS_ACCESS_KEY_ID = 'AKIAJVPTTLUUAOR6I3QA'
+
+    AWS_SECRET_ACCESS_KEY = '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'
+
+    AWS_AUTO_CREATE_BUCKET = True
+
+    AWS_HEADERS = {  # see http://developer.yahoo.com/performance/rules.html#expires
+        'Expires': 'Thu, 31 Dec 2099 20:00:00 GMT',
+        'Cache-Control': 'max-age=94608000',
+    }
+
+    AWS_STORAGE_BUCKET_NAME = 'dmodules_django_base'
+
+    AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+
+    STATIC_URL = "https://%s/" % AWS_S3_CUSTOM_DOMAIN
+    # MEDIA_URL = "https://%s/" % AWS_S3_CUSTOM_DOMAIN
+    MEDIA_URL = '/media/'
+
+
+
